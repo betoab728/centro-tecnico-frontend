@@ -30,8 +30,13 @@ export const adminRoutes: Routes = [
                 loadComponent: () => import('./reports/components/report-list/report-list.component').then(m => m.ReportListComponent)
               },
               {
+                path: 'main',
+                loadComponent: () => import('./dashboard/reports/reports.component').then(m => m.ReportsComponent)
+                
+              },
+              {
                 path:'',
-                redirectTo: 'usuarios',
+                redirectTo: 'main',
                 pathMatch: 'full'
               }
         ]
