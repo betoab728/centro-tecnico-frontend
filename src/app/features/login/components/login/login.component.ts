@@ -4,17 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { Login } from '../../models/login.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { provideHttpClient }  from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUser  } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,FontAwesomeModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  faUser  = faUser ;
 
   credentials: Login = { nombre: '', clave: '' };
   errorMessage: string = '';

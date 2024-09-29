@@ -11,7 +11,9 @@
         <form (ngSubmit)="login()" class="mb-4">
           <!-- Nombre de usuario -->
           <div class="mb-4">
+          
             <label for="username" class="mb-1 block text-sm text-gray-600">Nombre de usuario</label>
+           
             <input 
               type="text" 
               name="username" 
@@ -44,9 +46,16 @@
   
           <!-- Botón de login -->
           <div class="mb-6">
+            <div class="flex items-center">
+              <i class="fas fa-users text-blue-500 text-2xl"></i>
+              <span class="ml-2">Usuarios</span>
+            </div>
             <button 
               type="submit" 
-              class="w-full rounded bg-indigo-500 pt-2 pb-3 text-white duration-100 ease-in-out hover:bg-indigo-600 focus:outline-none">Login</button>
+              class="w-full rounded bg-indigo-500 pt-2 pb-3 text-white duration-100 ease-in-out hover:bg-indigo-600 focus:outline-none">
+              <fa-icon [icon]="faUser" class="mr-2"></fa-icon> <!-- Icono dentro del botón -->
+              Login
+            </button>
           </div>
         </form>
       </div>
