@@ -4,6 +4,7 @@ import { Observable,throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Login } from '../models/login.model';
+import { Endpoints } from '../../../../api/endpoints';
 
 
 @Injectable({
@@ -13,15 +14,15 @@ import { Login } from '../models/login.model';
 
 export class AuthService {
 
-  private apiURL = 'http://localhost:8080/auth/login'; // Cambia la URL según tu configuración
-
+  private apiUrl = Endpoints.login; // URL API Spring Boot para usuarios
+  
   constructor(private http: HttpClient , private router: Router ) { }
 
   login(credentials: Login): Observable<any> {
     console.log('Iniciando login...');
     console.log('Credenciales enviadas:', credentials);
 
-    return this.http.post<any>(this.apiURL, credentials, {
+    return this.http.post<any>(this.apiUrl, credentials, {
       withCredentials: true
     }).pipe(
       catchError(this.handleError)

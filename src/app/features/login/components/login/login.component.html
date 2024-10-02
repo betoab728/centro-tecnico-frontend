@@ -1,8 +1,8 @@
-<div class="flex min-h-screen justify-center bg-gray-100 font-sans">
-    <div class="container rounded my-auto max-w-md border-2 border-gray-200 bg-white p-3">
+<div class="flex min-h-screen justify-center font-sans  bg-[#34495E]">
+    <div class="container rounded-xl my-auto max-w-sm  bg-gray-800 p-3 m-4 custom-shadow shadow-sky-400 ">
       <!-- header -->
       <div class="my-6 text-center">
-        <h1 class="text-3xl font-semibold text-gray-700">Login</h1>
+        <h1 class="text-3xl font-semibold text-gray-100">ZELECTEC</h1>
         <p class="text-gray-500">Inicio de sesión</p>
       </div>
   
@@ -12,7 +12,7 @@
           <!-- Nombre de usuario -->
           <div class="mb-4">
           
-            <label for="username" class="mb-1 block text-sm text-gray-600">Nombre de usuario</label>
+            <label for="username" class="mb-1 block text-sm text-white">Nombre de usuario</label>
            
             <input 
               type="text" 
@@ -20,14 +20,14 @@
               id="username" 
               placeholder="Tu nombre de usuario" 
               [(ngModel)]="credentials.nombre"
-              class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-300 focus:border-indigo-300 focus:outline-none focus:ring focus:ring-indigo-100 dark:placeholder-gray-500 dark:focus:border-gray-500 dark:focus:ring-gray-900"
+              class="w-full bg-gray-800 text-gray-300 border border-sky-500 rounded-xl py-2 px-4 focus:outline-none focus:border-sky-600"
               required />
           </div>
   
           <!-- Contraseña -->
           <div class="mb-6">
             <div class="mb-1 flex justify-between">
-              <label for="password" class="text-sm text-gray-600">Contraseña</label>
+              <label for="password" class="text-sm text-white">Contraseña</label>
             </div>
             <input 
               type="password" 
@@ -35,7 +35,7 @@
               id="password" 
               placeholder="Tu contraseña" 
               [(ngModel)]="credentials.clave"
-              class="w-full rounded-md border border-gray-300 px-3 py-2 placeholder-gray-300 focus:border-indigo-300 focus:outline-none focus:ring focus:ring-indigo-100 dark:text-white dark:placeholder-gray-500 dark:focus:border-gray-500 dark:focus:ring-gray-900"
+              class="w-full bg-gray-800 text-gray-300 border border-sky-500 rounded-xl py-2 px-4 focus:outline-none focus:border-sky-600"
               required />
           </div>
   
@@ -46,15 +46,10 @@
   
           <!-- Botón de login -->
           <div class="mb-6">
-            <div class="flex items-center">
-              <i class="fas fa-users text-blue-500 text-2xl"></i>
-              <span class="ml-2">Usuarios</span>
-            </div>
             <button 
               type="submit" 
-              class="w-full rounded bg-indigo-500 pt-2 pb-3 text-white duration-100 ease-in-out hover:bg-indigo-600 focus:outline-none">
-              <fa-icon [icon]="faUser" class="mr-2"></fa-icon> <!-- Icono dentro del botón -->
-              Login
+              class="w-full rounded-md bg-sky-500 pt-2 pb-3 text-white duration-100 ease-in-out hover:bg-sky-600 focus:outline-none">
+              Iniciar sesión
             </button>
           </div>
         </form>
