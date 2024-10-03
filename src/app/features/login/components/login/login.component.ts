@@ -25,7 +25,15 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login(): void {
-   
+
+    //si no hay usuario o clave
+
+    if (!this.credentials.nombre || !this.credentials.clave) {
+      this.errorMessage = 'Usuario y clave son requeridos';
+      return;
+    }
+    
+    
     this.authService.login(this.credentials).subscribe({
       next: (response) => {
         console.log( "respuesta de la api :"+ response);
@@ -35,7 +43,9 @@ export class LoginComponent {
         this.router.navigate(['/admin']);
       },
       error: (err) => {
+      
         this.errorMessage = 'Usuario o clave incorrectos';
+        
       }
     });
   }

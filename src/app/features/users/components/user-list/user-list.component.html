@@ -1,1 +1,44 @@
-<p>user-list works!</p>
+<div class="flex h-[80vh] justify-center font-sans ">
+    <div class="container rounded-xl my-auto max-w-2xl p-1 m-2 shadow-md">
+      <!-- header -->
+      <div class="my-6 text-center">
+        <h1 class="text-3xl font-semibold text-black">Listado de Usuarios</h1>
+      
+      </div>
+  
+      <!-- Table -->
+      <div class="m-2 overflow-x-auto">
+        <div class="flex justify-start">
+          <a routerLink="/admin/usuarios/nuevo" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">Nuevo Usuario</a>
+        </div>
+        <table class=" min-w-full  text-black rounded-lg divide-y divide-sky-600 ">
+          <thead>
+            <tr>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Nombre</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Fecha Alta</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td class="text-left py-3 px-4">{{ user.nombre }}</td>
+              <td class="text-left py-3 px-4">
+                <span class="px-2 py-1 rounded-full text-xs font-semibold"
+                  [ngClass]="{
+                    'bg-green-500': user.estado === 'a',
+                    'bg-red-500': user.estado === 'i'
+                  }">
+                  {{ user.estado === 'a' ? 'Activo' : 'Inactivo'  }}
+                </span>
+              </td>
+              <td class="text-left py-3 px-4">{{ user.createdAt| date: 'shortDate' }}</td>
+              <td class="text-left py-3 px-4">
+                <a [routerLink]="['/users', user.usuarioId]" class="text-blue-500 hover:text-blue-800">Editar</a>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

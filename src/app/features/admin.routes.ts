@@ -33,6 +33,10 @@ export const adminRoutes: Routes = [
                 loadComponent: () => import('./users/components/user-list/user-list.component').then(m => m.UserListComponent)
               },
               {
+                path: 'usuarios/nuevo',
+                loadComponent: () => import('./users/components/add-user/add-user.component').then(m => m.AddUserComponent)
+              },
+              {
                 path: 'reportes',
                 loadComponent: () => import('./reports/components/report-list/report-list.component').then(m => m.ReportListComponent)
               },                       

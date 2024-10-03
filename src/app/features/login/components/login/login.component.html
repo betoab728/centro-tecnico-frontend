@@ -8,7 +8,7 @@
   
       <!-- sign-in -->
       <div class="m-6">
-        <form (ngSubmit)="login()" class="mb-4">
+        <form (ngSubmit)="login()"class="mb-4" #formLogin="ngForm">
           <!-- Nombre de usuario -->
           <div class="mb-4">
           
@@ -21,7 +21,12 @@
               placeholder="Tu nombre de usuario" 
               [(ngModel)]="credentials.nombre"
               class="w-full bg-gray-800 text-gray-300 border border-sky-500 rounded-xl py-2 px-4 focus:outline-none focus:border-sky-600"
-              required />
+              required #name="ngModel" />
+               <!-- Mensaje de error -->
+                <div class="text-red-500 text-sm" [hidden]="name.valid || name.pristine">
+                  <p >El nombre es obligatorio.</p>
+                </div>
+              
           </div>
   
           <!-- Contraseña -->
@@ -36,21 +41,27 @@
               placeholder="Tu contraseña" 
               [(ngModel)]="credentials.clave"
               class="w-full bg-gray-800 text-gray-300 border border-sky-500 rounded-xl py-2 px-4 focus:outline-none focus:border-sky-600"
-              required />
+              required #clave="ngModel"/>
+               <!-- Mensaje de error -->
+               <div class="text-red-500 text-sm" [hidden]="clave.valid || clave.pristine">
+                <p >La Contraseña es obligatorio.</p>
+              </div>
           </div>
-  
-          <!-- Mensaje de error -->
-          <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+          
+           <!-- Mensaje de error -->
+           <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
             {{ errorMessage }}
           </div>
-  
           <!-- Botón de login -->
           <div class="mb-6">
             <button 
               type="submit" 
-              class="w-full rounded-md bg-sky-500 pt-2 pb-3 text-white duration-100 ease-in-out hover:bg-sky-600 focus:outline-none">
+              class="w-full rounded-md bg-sky-500 pt-2 pb-3 text-white duration-100 ease-in-out hover:bg-sky-600 focus:outline-none"
+             >
               Iniciar sesión
             </button>
+           
+            
           </div>
         </form>
       </div>

@@ -7,12 +7,6 @@ export const routes: Routes = [
     {
         path: 'login',component:LoginComponent
     },
-
-    {
-        path:'',
-        redirectTo: 'login',
-        pathMatch: 'full'
-    },
      // Ruta para el dashboard con lazy loading para el layout y sus hijos
      {
         path: 'admin',
