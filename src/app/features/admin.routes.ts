@@ -15,6 +15,10 @@ export const adminRoutes: Routes = [
                 loadComponent: () => import('./clients/components/client-list/client-list.component').then(m => m.ClientListComponent)
               },
               {
+                path: 'clientes/nuevo',
+                loadComponent: () => import('./clients/components/add-client/add-client.component').then(m => m.AddClientComponent)
+              },
+              {
                 path: 'ordenes',
                 loadComponent: () => import('./orders/components/order-list/order-list.component').then(m => m.OrderListComponent)
               },

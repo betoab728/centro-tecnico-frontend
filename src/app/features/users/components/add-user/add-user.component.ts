@@ -1,5 +1,5 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Router, } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { User } from '../../models/user.interface';
 import { UsersService } from '../../services/users.service';
@@ -40,7 +40,7 @@ export class AddUserComponent {
 
  
   //constructor
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService ,private router: Router ) { }
 
   //al cargar el componente
   ngOnInit(): void {
@@ -82,6 +82,8 @@ export class AddUserComponent {
       if (result.isConfirmed) {
         this.usersService.addUser(this.user).subscribe(() => {
           Swal.fire('Usuario agregado', 'El usuario se ha agregado correctamente', 'success');
+          //navegar a la lista de usuarios
+          this.router.navigate(['/admin/usuarios']);
         });
   
       }
