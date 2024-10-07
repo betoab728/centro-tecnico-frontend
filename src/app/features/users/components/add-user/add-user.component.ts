@@ -47,7 +47,7 @@ export class AddUserComponent {
   }
 
   //agregar usuario
-  agregarUSuario(): void {
+  agregarUsuario(): void {
 
     console.log(this.user);
 
@@ -64,11 +64,12 @@ export class AddUserComponent {
     console.log('Las claves no coinciden');
     return;
   }
-    // Si las validaciones pasan, se llama a la confirmación
+
+
+  // Si las validaciones pasan, se llama a la confirmación
     this.confirmarAgregarUsuario();
 
   }
-
   //confirmacion de agregar usuario
   confirmarAgregarUsuario(): void {
     Swal.fire({
@@ -80,13 +81,21 @@ export class AddUserComponent {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usersService.addUser(this.user).subscribe(() => {
-          Swal.fire('Usuario agregado', 'El usuario se ha agregado correctamente', 'success');
-          //navegar a la lista de usuarios
-          this.router.navigate(['/admin/usuarios']);
+        this.usersService.addUser(this.user).subscribe({
+          next: () => {
+            Swal.fire('Usuario agregado', 'El usuario se ha agregado correctamente', 'success');
+            //navegar a la lista de usuarios
+            this.router.navigate(['/admin/usuarios']);
+          },
+          error: (error) => {
+            console.error('Error al agregar usuario', error);
+            Swal.fire('Error', 'Error al agregar usuario', 'error');
+          }
         });
-  
       }
     });
   }
+
+
 }
+//  

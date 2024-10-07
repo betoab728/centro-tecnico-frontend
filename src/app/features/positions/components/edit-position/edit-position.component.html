@@ -2,11 +2,9 @@
     <div class="container rounded-xl my-auto max-w-2xl p-6 m-2 shadow-md">
       <!-- header -->
       <div class="my-6 text-center">
-        <h1 class="text-3xl font-semibold text-black">Agregar Nuevo Cargo</h1>
-      </div>
-  
+        <h1 class="text-3xl font-semibold text-black">Editar Cargo</h1>
       <!-- Formulario -->
-      <form (ngSubmit)="agregarCargo()" #cargoForm="ngForm">
+      <form (ngSubmit)="updatePosition()" #cargoForm="ngForm">
         <div class="mb-4">
           <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre del Cargo</label>
           <input
@@ -22,12 +20,10 @@
             <p>El nombre del cargo es obligatorio.</p>
           </div>
         </div>
-  
         <!-- Mensaje de error -->
         <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
           {{ errorMessage }}
         </div>
-  
         <div class="flex justify-center">
           <button
             type="submit"

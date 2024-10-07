@@ -1,3 +1,5 @@
+import { Cargo } from "./cargo.interface";
+
 export interface Worker {
     idTrabajador: number;
     nombre: string;
@@ -9,8 +11,8 @@ export interface Worker {
     telefono: string;
     direccion: string;
     correo: string;
-    position: any; // Puedes definir una interfaz específica para Cargo si es necesario
-    estado: string; // 'a' para activo, 'i' para inactivo
+    cargo: Cargo; 
+    estado: string; 
     createdAt: Date;
     updatedAt: Date;
   }

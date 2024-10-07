@@ -2,11 +2,11 @@
     <div class="container rounded-xl my-auto max-w-2xl p-6 m-2 shadow-md border border-sky-300">
       <!-- header -->
       <div class="my-6 text-center">
-        <h1 class="text-3xl font-semibold text-black">Agregar Nuevo Cliente</h1>
+        <h1 class="text-3xl font-semibold text-black">Editar Cliente</h1>
       </div>
   
       <!-- Formulario -->
-      <form (ngSubmit)="agregarCliente()" #clienteForm="ngForm">
+      <form (ngSubmit)="updateClient()" #clienteForm="ngForm">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
           <div class="mb-2">
             <label for="dni" class="block text-sm font-medium text-gray-700">DNI</label>
@@ -119,13 +119,14 @@
               <p>El correo es obligatorio.</p>
             </div>
           </div>
+          
         </div>
         <div class="flex justify-center mt-2">
           <button
             type="submit"
             class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded"
           >
-            Agregar Cliente
+            Actualizar Cliente
           </button>
         </div>
       </form>

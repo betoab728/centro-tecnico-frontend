@@ -1,12 +1,12 @@
 <div class="flex h-[80vh] justify-center font-sans">
-    <div class="container rounded-xl my-auto max-w-2xl p-6 m-2 shadow-md">
+    <div class="container rounded-xl my-auto max-w-2xl p-6 m-2 shadow-md border border-sky-300">
       <!-- header -->
       <div class="my-6 text-center">
         <h1 class="text-3xl font-semibold text-black">Agregar Nuevo Usuario</h1>
       </div>
   
       <!-- Formulario -->
-      <form (ngSubmit)="agregarUSuario()" #userForm="ngForm">
+      <form (ngSubmit)="agregarUsuario()" #userForm="ngForm">
         <div class="mb-4">
           <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
           <input

@@ -35,6 +35,7 @@ export class WorkersService {
   }
 
   addWorker(worker: Worker): Observable<Worker> {
+    console.log( 'datos del trabajador a registrar', worker);
     return this.http.post<Worker>(this.apiUrl, worker).pipe(
       catchError((error) => this.handleError(error))
     );

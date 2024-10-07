@@ -43,7 +43,7 @@ export class AddClientComponent {
   //agregar cliente
   agregarCliente(): void {
 
-    console.log(this.cliente);
+   // console.log(this.cliente);
 
     //if de validacion
     if (!this.cliente.dni || !this.cliente.nombre || !this.cliente.apellidoPaterno || !this.cliente.apellidoMaterno || !this.cliente.direccion || !this.cliente.telefono || !this.cliente.correo) {
@@ -51,12 +51,37 @@ export class AddClientComponent {
       return;
     }
 
-    //agregar cliente
-    this.clientsService.addClient(this.cliente).subscribe((client) => {
-      Swal.fire('Cliente agregado', 'Cliente agregado correctamente', 'success');
-      this.router.navigate(['/clientes']);
-    });
+    //si las validaciones son correctas
+    this.confirmarAgregarCliente();
+    
 
   }
+
+  //confirmar agregar cliente
+
+  confirmarAgregarCliente(): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Estás seguro de agregar este cliente?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, agregar',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.clientsService.addClient(this.cliente).subscribe({
+          next: (client) => {
+            Swal.fire('Cliente agregado', 'Cliente agregado correctamente', 'success');
+            this.router.navigate(['/admin/clientes']);
+          },
+          error: (error) => {
+            console.error('Error al agregar cliente', error);
+            Swal.fire('Error', 'Ocurrió un error al agregar el cliente', 'error');
+          }
+        });
+      }
+    });
+  }
+  
 
 }
