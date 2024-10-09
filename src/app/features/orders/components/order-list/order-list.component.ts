@@ -8,6 +8,8 @@ import { OrderDTO } from '../../models/orderDTO.interface';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { lastValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-order-list',
@@ -56,10 +58,8 @@ export class OrderListComponent {
   }
 
   //actualizar estado de la orden
-
   updateOrderStatus(id: number, estado: string): void {
-  //se abre un modal para actualizar el estado de la orden con un select de los estados
- 
+    //se abre un modal para actualizar el estado de la orden con un select de los estados
     Swal.fire({
       title: 'Actualizar estado',
       input: 'select',
@@ -75,9 +75,8 @@ export class OrderListComponent {
       confirmButtonText: 'Actualizar',
       cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
-     
       preConfirm: (newStatus) => {
-        return this.orderService.updateOrder(id, newStatus).toPromise();
+        return lastValueFrom(this.orderService.updateOrder(id, newStatus));
       },
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
@@ -88,9 +87,7 @@ export class OrderListComponent {
           icon: 'success'
         });
       }
-    });    
-
-
+    });
   }
 
   //eliminar orden
