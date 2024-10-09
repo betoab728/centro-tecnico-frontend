@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { Order } from '../models/order.interface';
+import { OrderDTO } from '../models/orderDTO.interface';
 import { tap, catchError,retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Endpoints } from '../../../../api/endpoints';
@@ -14,13 +15,13 @@ export class OrdersService {
 
   private apiUrl = Endpoints.ordenes;  // URL API Spring Boot para pedidos
 
-  private ordersSubject = new BehaviorSubject<Order[]>([]);
+  private ordersSubject = new BehaviorSubject<OrderDTO[]>([]);
   orders$ = this.ordersSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.apiUrl).pipe(
+  getOrders(): Observable<OrderDTO[]> {
+    return this.http.get<OrderDTO[]>(this.apiUrl).pipe(
       retry(3), // Reintenta 3 veces en caso de errores transitorios
       tap((orders) => this.ordersSubject.next(orders)),
       catchError((error) => this.handleError(error))

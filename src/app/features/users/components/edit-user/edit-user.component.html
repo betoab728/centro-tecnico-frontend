@@ -1,1 +1,63 @@
-<p>edit-user works!</p>
+<div class="flex h-[80vh] justify-center font-sans">
+    <div class="container rounded-xl my-auto max-w-2xl p-6 m-2 shadow-md border border-sky-300">
+      <!-- header -->
+      <div class="my-6 text-center">
+        <h1 class="text-3xl font-semibold text-black">Editar Usuario</h1>
+      </div>
+  
+      <!-- Formulario -->
+      <form (ngSubmit)="updateUser()" #userForm="ngForm">
+        <div class="mb-4">
+          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="user.nombre"
+            required #nombre="ngModel"
+            class="mt-1 block w-full px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
+          />
+             <!-- Mensaje de error -->
+             <div class="text-red-500 text-sm" [hidden]="nombre.valid || nombre.pristine">
+                <p >El nombre es obligatorio.</p>
+              </div>
+        </div>
+
+       
+        <div class="mb-4">
+          <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
+          <select
+            id="estado"
+            name="estado"
+            [(ngModel)]="user.estado"
+            required #estado="ngModel"
+            class="mt-1 block w-full px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
+          >
+            <option value="a">Activo</option>
+            <option value="i">Inactivo</option>
+          </select>
+             <!-- Mensaje de error -->
+             <div class="text-red-500 text-sm" [hidden]="estado.valid || estado.pristine">
+                <p >El estado es obligatorio.</p>
+              </div>
+        </div>
+       
+         <!-- Mensaje de error -->
+         <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+            {{ errorMessage }}
+          </div>
+  
+        <div class="flex justify-center">
+           
+          <button
+            type="submit"
+            class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Agregar Usuario
+          </button>
+          
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Client } from '../../models/client.interface';
 import { ClientsService } from '../../services/clients.service';
+//importamos sweetalert
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-client-list',
@@ -29,12 +31,32 @@ export class ClientListComponent {
   }
 
   eliminarCliente(id:number): void {
-    /*   if (confirm('¿Estás seguro de que deseas eliminar este trabajador?')) {
-         this.workersService.deleteTrabajador(id).subscribe(() => {
-           // Después de eliminar, actualiza la lista de trabajadores
-           this.workersService = this.workersService.filter(workersService => workersService.id !== id);
-         });
-       }*/
+        // Preguntar al usuario si está seguro de eliminar el trabajador con sweetalert
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminarlo!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma la eliminación, se elimina el trabajador
+                this.clientsService.deleteClient(id).subscribe(() => {
+                    // Se actualiza la lista de trabajadores
+                    this.clientsService.getClients().subscribe();
+                });
+                // Se muestra un mensaje de éxito con sweetalert
+                Swal.fire(
+                    'Eliminado!',
+                    'El trabajador ha sido eliminado.',
+                    'success'
+                );
+            }
+        });
+      
      }
 
 }

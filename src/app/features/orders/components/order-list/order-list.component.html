@@ -1,1 +1,60 @@
-<p>order-list works!</p>
+<div class="flex h-[80vh] justify-center font-sans ">
+    <div class="container rounded-xl my-auto max-w-3xl p-1 m-2 shadow-md border border-sky-300">
+      <!-- header -->
+      <div class="my-6 text-center">
+        <h1 class="text-3xl font-semibold text-black">Listado de Ordenes</h1>
+      
+      </div>
+  
+      <!-- Table -->
+      <div class="m-2 overflow-x-auto">
+        <div class="flex justify-start">
+          <a routerLink="/admin/ordenes/nuevo" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">Nueva Orden</a>
+        </div>
+        <table class=" min-w-full  text-black rounded-lg divide-y divide-sky-300 ">
+          <thead>
+            <tr>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">N°</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Fecha</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Hora</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Cliente</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Estado</th>
+              <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class=" divide-y divide-sky-300">
+            <tr *ngFor="let ordenes of orders">
+              <td class="text-left py-3 px-4">{{ ordenes.idOrden }}</td>
+              <td class="text-left py-3 px-4">{{ ordenes.fecha }}</td>
+              <td class="text-left py-3 px-4">{{ ordenes.hora }}</td>
+              <td class="text-left py-3 px-4">{{ ordenes.nombreCompletoCliente }}</td>
+              <td class="text-left py-3 px-4">
+                    <span class="px-2 py-1 rounded-full text-xs font-semibold" 
+                      [ngClass]="{  'bg-green-500': ordenes.estadoOrden === 'C',
+                        'bg-yellow-500': ordenes.estadoOrden !== 'C'
+                    }">
+                    {{mapStatus(ordenes.estadoOrden) }}
+
+                    </span>
+              </td>
+                <td class="text-left py-3 px-4">
+                    <a routerLink="/admin/ordenes/{{ ordenes.idOrden }}" class="text-sky-600 hover:text-sky-800 font-semibold mr-2">
+                    
+                       <fa-icon [icon]="faEye" class="icon-size"></fa-icon>
+
+                    </a>
+                    <a (click)="updateOrderStatus(ordenes.idOrden, '')" class="text-sky-600 hover:text-sky-800 font-semibold  mr-2">
+                        <fa-icon [icon]="faEdit" class="icon-size"></fa-icon>
+                    </a>
+                    <a (click)="deleteOrder(ordenes.idOrden)" class="text-sky-600 hover:text-sky-800 font-semibold mr-2">
+                        <fa-icon [icon]="faTrash" class="icon-size"></fa-icon>
+                    </a>
+                </td>
+                
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
