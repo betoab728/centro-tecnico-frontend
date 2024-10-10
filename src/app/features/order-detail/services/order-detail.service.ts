@@ -27,8 +27,8 @@ export class OrderDetailService {
     );
   }
   
-  getOrderDetailById(id: number): Observable<OrderDetail> {
-    return this.http.get<OrderDetail>(`${this.apiUrl}/${id}`).pipe(
+  getOrderDetailById(id: number): Observable<OrderDetail[]> {
+    return this.http.get<OrderDetail[]>(`${this.apiUrl}/detalle/${id}`).pipe(
       retry(3), // Reintenta solo en errores transitorios
       catchError((error) => this.handleError(error))
     );

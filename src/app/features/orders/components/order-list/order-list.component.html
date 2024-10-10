@@ -25,7 +25,7 @@
           <tbody class=" divide-y divide-sky-300">
             <tr *ngFor="let ordenes of orders">
               <td class="text-left py-3 px-4">{{ ordenes.idOrden }}</td>
-              <td class="text-left py-3 px-4">{{ ordenes.fecha }}</td>
+              <td class="text-left py-3 px-4">{{ ordenes.fecha | date:'dd/MM/yyyy' }}</td>
               <td class="text-left py-3 px-4">{{ ordenes.hora }}</td>
               <td class="text-left py-3 px-4">{{ ordenes.nombreCompletoCliente }}</td>
               <td class="text-left py-3 px-4">
@@ -38,15 +38,13 @@
                     </span>
               </td>
                 <td class="text-left py-3 px-4">
-                    <a routerLink="/admin/ordenes/{{ ordenes.idOrden }}" class="text-sky-600 hover:text-sky-800 font-semibold mr-2">
-                    
-                       <fa-icon [icon]="faEye" class="icon-size"></fa-icon>
-
+                    <a (click)="viewOrderDetail(ordenes.idOrden)" class="text-sky-600 hover:text-sky-800 font-semibold mr-2 cursor-pointer">
+                      <fa-icon [icon]="faEye" class="icon-size"></fa-icon>
                     </a>
-                    <a (click)="updateOrderStatus(ordenes.idOrden, '')" class="text-sky-600 hover:text-sky-800 font-semibold  mr-2">
+                    <a (click)="updateOrderStatus(ordenes.idOrden)" class="text-sky-600 hover:text-sky-800 font-semibold mr-2 cursor-pointer">
                         <fa-icon [icon]="faEdit" class="icon-size"></fa-icon>
                     </a>
-                    <a (click)="deleteOrder(ordenes.idOrden)" class="text-sky-600 hover:text-sky-800 font-semibold mr-2">
+                    <a (click)="deleteOrder(ordenes.idOrden)" class="text-sky-600 hover:text-sky-800 font-semibold mr-2 cursor-pointer">
                         <fa-icon [icon]="faTrash" class="icon-size"></fa-icon>
                     </a>
                 </td>

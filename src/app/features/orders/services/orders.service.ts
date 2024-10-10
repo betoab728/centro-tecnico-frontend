@@ -5,6 +5,7 @@ import { OrderDTO } from '../models/orderDTO.interface';
 import { tap, catchError,retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Endpoints } from '../../../../api/endpoints';
+import { OrderDetail } from '../../order-detail/models/order-detail.interface';
 
 
 @Injectable({
@@ -47,12 +48,27 @@ export class OrdersService {
     );
   }
 
+  //actualizar estado de la orden
+
+  updateOrderState(id: number, estadoOrden: string): Observable<Order> {
+    return this.http.patch<Order>(`${this.apiUrl}/estadoOrden/${id}`, { estadoOrden }).pipe(
+      catchError((error) => this.handleError(error))
+    );
+  }
+
   deleteOrder(id: number): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}/${id}`).pipe(
       catchError((error) => this.handleError(error))
     );
   }
 
+  //para ver el detalle de la orden que recibe como parametro el id
+
+  getOrderDetails(idOrden: number): Observable<OrderDetail[]> {
+    return this.http.get<OrderDetail[]>(`${this.apiUrl}/detalleOrden/detalle/${idOrden}`).pipe(
+      catchError((error) => this.handleError(error))
+    );
+  }
   // Manejo de errores
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Error inesperado. Por favor intente más tarde.';
