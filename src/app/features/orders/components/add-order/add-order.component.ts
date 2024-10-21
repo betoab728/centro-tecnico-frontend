@@ -9,4 +9,13 @@ import { Component } from '@angular/core';
 })
 export class AddOrderComponent {
 
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  agregarOrden(){
+    console.log('Orden agregada');
+  }
+
 }
