@@ -98,7 +98,7 @@ export class OrderListComponent {
   //eliminar orden
 
   deleteOrder(id: number): void {
-    /* Swal.fire({
+     Swal.fire({
       title: '¿Estás seguro?',
       text: "No podrás revertir esto!",
       icon: 'warning',
@@ -118,7 +118,7 @@ export class OrderListComponent {
           'success'
         );
       }
-    }); */
+    }); 
   }
 
   //ver detalle de la orden
