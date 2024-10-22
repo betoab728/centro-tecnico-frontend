@@ -1,0 +1,50 @@
+[
+    {
+        "nombre": "Juan",
+        "apellidoPaterno": "Pérez",
+        "apellidoMaterno": "González",
+        "sexo": "m",
+        "dni": "23456789",
+        "fechaNacimiento": "1990-01-01",
+        "telefono": "987654321",
+        "direccion": "Calle huanuco 123 piura",
+        "correo": "juanperez@example.com",
+        "cargo": {
+        "id":"1"
+        }, 
+        "estado": "a" 
+
+   },
+   {
+    "orden": {
+      "fecha": "2024-10-01",
+      "hora": "10:30:00",
+      "trabajador": {
+        "idTrabajador": 1
+      },
+      "cliente": {
+        "idCliente": 1
+      },
+      "fechaEntrega": "2024-10-15",
+      "estadoOrden": "I",
+      "estado": "e",
+      "observacion": "La entrega debe hacerse antes de la fecha acordada.",
+      "total": 150.75
+    },
+    "detalles": [
+      {
+        "descripcion": "Servicio de reparación",
+        "cantidad": 2,
+        "precioUnitario": 50.25,
+        "subtotal": 100.50
+      },
+      {
+        "descripcion": "Producto adicional",
+        "cantidad": 1,
+        "precioUnitario": 50.25,
+        "subtotal": 50.25
+      }
+    ]
+  }
+]
+

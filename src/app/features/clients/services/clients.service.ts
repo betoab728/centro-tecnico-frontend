@@ -19,13 +19,23 @@ export class ClientsService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+ /* lo comento para agregar paginacion
   getClients(): Observable<Client[]> {
     return this.http.get<Client[]>(this.apiUrl).pipe(
       retry(3), // Reintenta 3 veces en caso de errores transitorios
       tap((clients) => this.clientsSubject.next(clients)),
       catchError((error) => this.handleError(error))
     );
-  }
+  }*/
+    getClients(page: number = 1, size: number = 10): Observable<Client[]> {
+      const url = `${this.apiUrl}?page=${page}&size=${size}`; // Ajusta según tu API
+      return this.http.get<Client[]>(url).pipe(
+        retry(3),
+        tap((clients) => this.clientsSubject.next(clients)),
+        catchError((error) => this.handleError(error))
+      );
+    }
+
   
   getClientById(id: number): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/${id}`).pipe(
