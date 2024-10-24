@@ -11,6 +11,7 @@ export const adminRoutes: Routes = [
               { path: 'clientes/editar/:id',loadComponent: () => import('./clients/components/edit-client/edit-client.component').then(m => m.EditClientComponent) },
               { path: 'ordenes', loadComponent: () => import('./orders/components/order-list/order-list.component').then(m => m.OrderListComponent)},
               {path: 'ordenes/nuevo',loadComponent: () => import('./orders/components/add-order/add-order.component').then(m => m.AddOrderComponent)},
+              //{path: 'ordenes/nuevo',loadComponent: () => import('./orders/components/new-order/new-order.component').then(m => m.NewOrderComponent)},
               { path: 'trabajadores',loadComponent: () => import('./workers/components/workers-list/workers-list.component').then(m => m.WorkersListComponent)  },
               { path: 'trabajadores/nuevo',loadComponent: () => import('./workers/components/add-worker/add-worker.component').then(m => m.AddWorkerComponent) },
               { path: 'trabajadores/editar/:id',loadComponent: () => import('./workers/components/edit-worker/edit-worker.component').then(m => m.EditWorkerComponent) },

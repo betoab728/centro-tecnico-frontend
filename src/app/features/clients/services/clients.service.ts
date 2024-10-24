@@ -4,6 +4,10 @@ import { Client } from '../models/client.interface';
 import { tap, catchError,retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Endpoints } from '../../../../api/endpoints';
+import { Page } from '../models/page.interface';
+import { HttpParams } from '@angular/common/http';
+
+
 
 
 @Injectable({
@@ -19,19 +23,31 @@ export class ClientsService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
- /* lo comento para agregar paginacion
   getClients(): Observable<Client[]> {
     return this.http.get<Client[]>(this.apiUrl).pipe(
       retry(3), // Reintenta 3 veces en caso de errores transitorios
       tap((clients) => this.clientsSubject.next(clients)),
       catchError((error) => this.handleError(error))
     );
-  }*/
-    getClients(page: number = 1, size: number = 10): Observable<Client[]> {
-      const url = `${this.apiUrl}?page=${page}&size=${size}`; // Ajusta según tu API
-      return this.http.get<Client[]>(url).pipe(
+  }
+
+    getClientsPage(
+      texto: string = '', 
+      page: number = 0, 
+      size: number = 10
+    ): Observable<Page<Client>> {
+      const params = new HttpParams()
+        .set('texto', texto)
+        .set('page', page.toString())
+        .set('size', size.toString());
+    
+      const url = `${this.apiUrl}/buscar`; // Ajusta el endpoint según corresponda
+      console.log('URL de la llamada:', url); // Agrega este log para verificar la URL
+      console.log('Parámetros:', params.toString()); // Log de parámetros
+    
+      return this.http.get<Page<Client>>(url, { params }).pipe(
         retry(3),
-        tap((clients) => this.clientsSubject.next(clients)),
+        tap((clients) => this.clientsSubject.next(clients.content)), // Envía solo los clientes desde `Page`
         catchError((error) => this.handleError(error))
       );
     }

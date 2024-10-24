@@ -1,85 +1,176 @@
 <form [formGroup]="ordenForm" (ngSubmit)="agregarOrden()">
-  <!-- Control para seleccionar cliente -->
-  <div class="mb-4">
-    <label for="cliente" class="block text-sm font-medium text-gray-700">Cliente</label>
-    <ng-select
-      class="mt-1 block w-full px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
-      id="cliente"
-      formControlName="cliente"
-      [items]="clients"
-      bindLabel="nombreCompleto"
-      (search)="buscar($event.term)" 
-      placeholder="Seleccione un cliente"
-      [loading]="loading"
-    >
-    </ng-select>
-  </div>
-
-  <!-- Control para descripción -->
-  <div class="mb-4">
-    <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-    <input
-      id="descripcion"
-      type="text"
-      formControlName="descripcion"
-      class="mt-1 block w-full px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
-    />
-    <div *ngIf="ordenForm.get('descripcion')?.invalid && ordenForm.get('descripcion')?.touched" class="text-red-500 text-sm">
-      La descripción es obligatoria.
+    <div  class="border border-sky-300 rounded-md p-4 mb-2">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- Cliente -->
+           <div class="mb-4">
+             <label for="cliente">Cliente</label>
+             <ng-select
+               class="block w-full max-w-md border border-sky-500 rounded-md shadow-sm focus:outline-none"
+               [items]="clients"
+               bindLabel="nombreCompleto"
+               bindValue="idCliente"
+               placeholder="Buscar cliente"
+               [loading]="loading"
+               [typeahead]="searchTerm"
+               (search)="onSearch($event)"
+               formControlName="cliente"
+               (change)="onSelectClient($event)">
+             </ng-select>
+           </div>
+         
+           <div class="mb-4">
+             <label for="fechaEntrega" class="block text-sm font-medium text-gray-700">Fecha de Entrega</label>
+             <input
+               id="fechaEntrega"
+               type="date"
+               formControlName="fechaEntrega"
+               class="mt-1 block w-full max-w-md px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
+             />
+             <div *ngIf="ordenForm.get('fechaEntrega')?.invalid && ordenForm.get('fechaEntrega')?.touched"
+               class="text-red-500 text-sm">
+               La fecha de entrega es obligatoria.
+             </div>
+           </div>
+          
+            <div class="mb-4">
+              <label for="trabajador">Responsable</label>
+              <select id="trabajador"
+                formControlName="trabajador"
+                class="block w-full max-w-md border border-sky-500 rounded-md shadow-sm focus:outline-none py-2">
+                <option value="" disabled>Seleccionar trabajador</option>
+                <option *ngFor="let trabajador of workers" [value]="trabajador.idTrabajador">
+                  {{ trabajador.nombre + ' ' + trabajador.apellidoPaterno + ' ' + trabajador.apellidoMaterno }}
+                </option>
+              </select>
+             
+              <div *ngIf="ordenForm.get('trabajador')?.invalid && ordenForm.get('trabajador')?.touched"
+                class="text-red-500 text-sm">
+                El trabajador es obligatorio.
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="observaciones" class="block text-sm font-medium text-gray-700">Observaciones</label>
+              <input
+                type="text"
+                id="observaciones"
+                formControlName="observaciones"
+                class="mt-1 block w-full max-w-md px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
+              >
+            </div>
+           
+           
+       </div>
     </div>
-  </div>
+   
+    <div class="border border-sky-300 rounded-md p-4">
 
-  <!-- Tabla de ítems -->
-  <div class="mb-4">
-    <h2 class="text-lg font-semibold">Ítems</h2>
-    <table class="min-w-full border-collapse border border-gray-300">
-      <thead>
-        <tr>
-          <th class="border border-gray-300 px-4 py-2">Descripción</th>
-          <th class="border border-gray-300 px-4 py-2">Cantidad</th>
-          <th class="border border-gray-300 px-4 py-2">Precio</th>
-          <th class="border border-gray-300 px-4 py-2">Subtotal</th>
-          <th class="border border-gray-300 px-4 py-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of itemsControls; let i = index" [formGroup]="item">
-          <td class="border border-gray-300 px-4 py-2">
-            <input type="text" formControlName="descripcion" class="w-full" />
-          </td>
-          <td class="border border-gray-300 px-4 py-2">
-            <input type="number" formControlName="cantidad" class="w-full" />
-          </td>
-          <td class="border border-gray-300 px-4 py-2">
-            <input type="number" formControlName="precio" class="w-full" />
-          </td>
-          <td class="border border-gray-300 px-4 py-2">
-            {{ calcularSubtotal(item) | currency }}
-          </td>
-          <td class="border border-gray-300 px-4 py-2">
-            <button type="button" (click)="eliminarItem(i)" class="text-red-500">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- Agrupar Descripción, Cantidad y Precio en una misma fila -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- Descripción -->
+        <div>
+          <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
+          <input
+            id="descripcion"
+            type="text"
+            formControlName="descripcion"
+            class="mt-1 block w-full max-w-md px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
+          />
+          <div *ngIf="ordenForm.get('descripcion')?.invalid && ordenForm.get('descripcion')?.touched"
+            class="text-red-500 text-sm">
+            La descripción es obligatoria.
+          </div>
+        </div>
+    
+        <!-- Cantidad -->
+        <div>
+          <label for="cantidad" class="block text-sm font-medium text-gray-700">Cantidad</label>
+          <input
+            id="cantidad"
+            type="number"
+            formControlName="cantidad"
+            class="mt-1 block w-full max-w-xs px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
+          />
+          <div *ngIf="ordenForm.get('cantidad')?.invalid && ordenForm.get('cantidad')?.touched"
+            class="text-red-500 text-sm">
+            La cantidad es obligatoria.
+          </div>
+        </div>
+    
+        <!-- Precio -->
+        <div>
+          <label for="precio" class="block text-sm font-medium text-gray-700">Precio</label>
+          <input
+            id="precio"
+            type="number"
+            formControlName="precio"
+            class="mt-1 block w-full max-w-xs px-3 py-2 border border-sky-500 rounded-md shadow-sm focus:outline-none"
+            (blur)="formatearPrecio()"
+            pattern="^\d+(\.\d{1,2})?$"
+            inputmode="decimal"
+          />
+          <div *ngIf="ordenForm.get('precio')?.invalid && ordenForm.get('precio')?.touched"
+            class="text-red-500 text-sm">
+            El precio es obligatorio.
+          </div>
+        </div>
+          <!-- Botón para agregar ítem -->
+        <div class="flex justify-end mt-4">
+          <button
+            type="button"
+            (click)="agregarItem()"
+            class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded max-h-10">
+            Agregar Ítem
+          </button>
+        </div>
+      </div>
+    
+    
   </div>
+  
+<!-- Tabla de ítems -->
+<div class="mb-4">
+  <h2 class="text-lg font-semibold">Ítems</h2>
+  <table class="min-w-full border-collapse border border-gray-300">
+    <thead>
+      <tr>
+        <th class="border border-sky-300 px-4 py-2 w-1/2">Descripción</th>
+        <th class="border border-sky-300 px-4 py-2  w-1/12">Cantidad</th>
+        <th class="border border-sky-300 px-4 py-2  w-1/12">Precio</th>
+        <th class="border border-sky-300 px-4 py-2  w-1/12">Subtotal</th>
+        <th class="border border-sky-300 px-4 py-2  w-1/12">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items; let i = index">
+        <td class="border border-sky-300 px-4 py-2">{{ item.descripcion }}</td>
+        <td class="border border-sky-300 px-4 py-2">{{ item.cantidad }}</td>
+        <td class="border border-sky-300 px-4 py-2"> S/.{{ item.precio |   number:'1.2-2'   }}</td>
+        <td class="border border-sky-300 px-4 py-2"> S/.{{ item.subtotal |  number:'1.2-2'   }}</td>
+        <td class="border border-sky-300 px-4 py-2">
+          <button 
+            type="button" 
+            (click)="eliminarItem(i)" 
+            class="text-red-500 hover:text-red-700">
+            <fa-icon [icon]="faTrash" class="icon-size"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <!-- Botón para agregar ítem -->
-  <div class="flex justify-between mb-4">
-    <button type="button" (click)="agregarItem()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">
-      Agregar Ítem
-    </button>
-  </div>
+
 
   <!-- Total -->
   <div class="mb-4">
-    <p class="text-lg font-semibold">Total: {{ total | currency }}</p>
+     <p class="text-lg font-semibold">Total: S/.{{ total |  number:'1.2-2'  }}</p>
   </div>
 
   <!-- Botón para enviar la orden -->
   <div class="flex justify-center">
-    <button type="submit" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded">
-      Agregar Orden de Pedido
+    <button type="submit" class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded"
+    [disabled]="items.length=== 0">
+      Registrar Orden
     </button>
   </div>
 </form>

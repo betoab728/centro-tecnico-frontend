@@ -6,6 +6,7 @@ import { tap, catchError,retry } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Endpoints } from '../../../../api/endpoints';
 import { OrderDetail } from '../../order-detail/models/order-detail.interface';
+import { OrdenConDetallesDTO } from '../models/ordenConDetalleDTO.interface';
 
 
 @Injectable({
@@ -36,8 +37,8 @@ export class OrdersService {
     );
   }
 
-  addOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(this.apiUrl, order).pipe(
+  addOrder(ordenConDetalles: OrdenConDetallesDTO): Observable<OrdenConDetallesDTO> {
+    return this.http.post<OrdenConDetallesDTO>(this.apiUrl, ordenConDetalles).pipe(
       catchError((error) => this.handleError(error))
     );
   }
