@@ -9,4 +9,5 @@ export const Endpoints = {
     ordenes: `${environment.apiUrl}/ordenes`,
     detalleOrdenes: `${environment.apiUrl}/detalleOrden`,
     usuarios: `${environment.apiUrl}/usuarios`,
+    reporteOrdenes: `${environment.apiUrlReportes}/reporteOrdenes`,
   };

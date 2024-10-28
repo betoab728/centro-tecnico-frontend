@@ -15,12 +15,14 @@ import Swal from 'sweetalert2';
 //importamos orders.service
 import { OrdersService } from '../../services/orders.service';
 import { OrdenConDetallesDTO } from '../../models/ordenConDetalleDTO.interface';
+import { RouterModule,Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-order',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule,InfiniteScrollDirective,NgLabelTemplateDirective,
-     NgOptionTemplateDirective, NgSelectComponent,FontAwesomeModule],
+     NgOptionTemplateDirective, NgSelectComponent,FontAwesomeModule,RouterModule],
   templateUrl: './add-order.component.html',
   styleUrl: './add-order.component.css'
 })
@@ -45,7 +47,8 @@ export class AddOrderComponent implements OnInit {
     private fb: FormBuilder 
     , private clientsService: ClientsService,
      private workersService: WorkersService
-    , private ordenService: OrdersService) 
+    , private ordenService: OrdersService,
+    private router: Router) 
      {
     this.ordenForm = this.fb.group({
       cliente: [null, Validators.required], 
@@ -205,16 +208,20 @@ export class AddOrderComponent implements OnInit {
     });
   }
 
-   // Función para mostrar mensaje de éxito
-   mostrarExitoRegistro(): void {
-    Swal.fire({
-      title: 'Éxito',
-      text: 'La orden ha sido registrada correctamente.',
-      icon: 'success',
-      confirmButtonText: 'Cerrar',
-    });
-  }
-
+    // Función para mostrar mensaje de éxito
+    mostrarExitoRegistro(): void {
+      Swal.fire({
+        title: 'Éxito',
+        text: 'La orden ha sido registrada correctamente.',
+        icon: 'success',
+        confirmButtonText: 'Cerrar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirigir al listado de órdenes
+          this.router.navigate(['/admin/ordenes']);
+        }
+      });
+    }
    // Función para mostrar mensaje de error en el registro
    mostrarErrorRegistro(): void {
     Swal.fire({
@@ -224,6 +231,9 @@ export class AddOrderComponent implements OnInit {
       confirmButtonText: 'Cerrar',
     });
   }
+
+  //crea una funciona para validar el nombre del cliente
+  
 
     // Función para construir el DTO de la orden con detalles
     construirOrdenConDetallesDTO(): OrdenConDetallesDTO  {

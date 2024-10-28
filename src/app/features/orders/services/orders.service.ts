@@ -37,8 +37,8 @@ export class OrdersService {
     );
   }
 
-  addOrder(ordenConDetalles: OrdenConDetallesDTO): Observable<OrdenConDetallesDTO> {
-    return this.http.post<OrdenConDetallesDTO>(this.apiUrl, ordenConDetalles).pipe(
+  addOrder(ordenConDetalles: OrdenConDetallesDTO): Observable<number> {
+    return this.http.post<number>(this.apiUrl, ordenConDetalles).pipe(
       catchError((error) => this.handleError(error))
     );
   }
