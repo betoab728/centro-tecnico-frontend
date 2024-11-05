@@ -10,4 +10,5 @@ export const Endpoints = {
     detalleOrdenes: `${environment.apiUrl}/detalleOrden`,
     usuarios: `${environment.apiUrl}/usuarios`,
     reporteOrdenes: `${environment.apiUrlReportes}/reporteOrdenes`,
+    dashboad: `${environment.apiUrl}/ordenes/dashboard`,
   };
